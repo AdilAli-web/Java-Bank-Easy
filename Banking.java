@@ -21,7 +21,7 @@ class Banking implements Accountable {
             System.out.println("Invalid amount X");
         } else {
             this.balance += amount;
-            System.out.println("Received " + amount + "succesfully. current balance is : " + balance);
+            System.out.println("Received " + amount + " Succesfully. current balance is : " + balance);
             transactions.add("Credit " + amount);
         }
     }
@@ -32,6 +32,7 @@ class Banking implements Accountable {
             System.out.println("Insufficient balance");
         } else {
             balance -= amount;
+            System.out.println("Withdrawn " + amount + " Succesfully. current balance is : " + balance);
             transactions.add("Debit: " + amount);
         }
     }
@@ -44,6 +45,10 @@ class Banking implements Accountable {
     @Override
     public void transactionHistory() {
         for (String t : transactions) {
+            if (t.isEmpty()) {
+                System.out.println("No transactions yet.");
+                return;
+            }
             System.out.println(t);
         }
     }

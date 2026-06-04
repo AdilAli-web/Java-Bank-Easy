@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 class Banking implements Accountable {
 
+    User user;
     private double balance;
     private String accountHolderName;
     private ArrayList<String> transactions = new ArrayList<>();
@@ -32,7 +33,7 @@ class Banking implements Accountable {
             System.out.println("Insufficient balance");
         } else {
             balance -= amount;
-            System.out.println("Withdrawn " + amount + " Succesfully. current balance is : " + balance);
+            System.out.println("Withdrawn " + amount + " Succesfully. current balance is : " + balance + accountHolderName);
             transactions.add("Debit: " + amount);
         }
     }

@@ -4,25 +4,46 @@ import java.util.Scanner;
 class FromHere {
 
     private Scanner sc = new Scanner(System.in);
-    private Auth auth = new Auth();
+    private final Auth auth = new Auth();
     private Accountable account;
 
     public void start() {
         System.out.println("------------------------------------------------");
         System.out.println("Welcome to the Bank ");
-        System.out.println("------------------------------------------------");
 
-        // default user
-        auth.register(new User("adil", "1234"));
+        // default user// please register your user first
+        boolean passchecker = false;
+        while (!passchecker) {
+            try {
+
+                System.out.println("------------------------------------------------");
+                System.out.println("Register your name");
+                String registername = sc.nextLine();
+                System.out.println("------------------------------------------------");
+                System.out.println("Register your password");
+                String registerpassword = sc.nextLine();
+                System.out.println("------------------------------------------------");
+                auth.register(new User(registername, registerpassword));
+                passchecker = true;
+
+                System.out.println("User registered!");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please try again");
+
+            }
+
+        }
 
         if (login()) {
-            account = new Banking(1000, "Ali");
+            account = new Banking(1000, currentuser);
 
             menuLoop();
         } else {
             System.out.println("Login failed");
         }
     }
+    private String currentuser;
 
     private boolean login() {
         System.out.println("Login to your account :");
@@ -35,7 +56,7 @@ class FromHere {
         if (auth.login(userName, password)) {
             System.out.println("------------------------------------------------");
             System.out.println("Login successful");
-
+            currentuser = userName;
             System.out.println("Welcome back " + userName);
             return true;
         }
@@ -103,7 +124,7 @@ class FromHere {
         }
     }
 
-    private void processing() {
+    private final void processing() {
         System.out.println("Processing.............");
         try {
             Thread.sleep(500);
